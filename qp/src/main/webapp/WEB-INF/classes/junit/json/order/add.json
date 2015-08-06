@@ -1,0 +1,57 @@
+{
+    "prodId": 1,
+    "prodMenuId": 1,
+    "totalPrice": 15023,
+    "prodPriceList": [
+        {
+            "priceId": 1,
+            "priceCondition": "(3-13岁)",
+            "price": 30,
+            "buyNum": 2
+        },
+        {
+            "priceId": 2,
+            "priceCondition": "(14-99岁)",
+            "price": 50,
+            "buyNum": 1
+        }
+    ],
+    "upgradeServerList": [
+        {
+            "upgradeId": 1,
+            "upgradeDesc": "麻辣大龙虾一盘",
+            "upgradePrice": 50,
+            "buyNum": 2
+        },
+        {
+            "upgradeId": 2,
+            "upgradeDesc": "海蜇一盘",
+            "upgradePrice": 30,
+            "buyNum": 2
+        }
+    ],
+    "touristList": [
+        {
+            "dayContacts": 1,
+            "touristFirName": "三",
+            "touristSecName": "张",
+            "touristCellphone": "12332211231",
+            "touristPeriod": "16-99岁",
+            "touristSex": 1
+        },
+        {
+            "dayContacts": 0,
+            "touristFirName": "四",
+            "touristSecName": "李",
+            "touristCellphone": "12332211231",
+            "touristPeriod": "16-99岁",
+            "touristSex": 1
+        }
+    ],
+    "bookContact": {
+        "bookMessage": "无",
+        "bookContactsName": "张三",
+        "bookContactsCellphone": "12332211231",
+        "bookContactsMail": "123@qq.com"
+    }
+}

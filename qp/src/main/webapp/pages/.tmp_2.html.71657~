@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="Keywords" content="汽配,北京,北京汽配,北京汽配在线">
+		<title>北京汽配在线</title>
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=yes" name="format-detection">
+		<link rel="stylesheet" media="all" href="css/style.css">
+		<script type="text/javascript">
+			(function(){
+				var viewPort = document.getElementById('viewPortId'),width= screen.availWidth;
+				if(Math.abs(window.orientation) == 90)
+					width= screen.availHeight;
+				if(!viewPort){
+					viewPort = document.createElement('meta');
+					viewPort.id='viewPortId';
+					viewPort.name='viewport'
+				}
+				viewPort.content='width=480,initial-scale='+width/480+',maximum-scale='+width/480+',minimum-scale='+width/480+',target-densitydpi=device-dpi,user-scalable=no';
+				document.getElementsByTagName('head')[0].appendChild(viewPort);
+			})(this);
+		</script>
+	</head>
+<body>
+	<div id="ads" class="q-r"></div>
+	<ul id="typeLists" class="type-list1"></ul>
+	<script type="text/javascript" src="js/jquery/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="js/init.js"></script>
+	<script type="text/javascript">
+		var types = [
+			{id:21,name:'美系',children:[
+				{id:2101,name:'道奇'},
+				{id:2102,name:'吉普'},
+				{id:2104,name:'沙漠王 4000 4700 4500'},
+				{id:2104,name:'酷路泽 陆地巡洋舰'}
+			]},
+			{id:22,name:'美系',children:[
+				{id:2101,name:'道奇'},
+				{id:2102,name:'吉普'},
+				{id:2104,name:'沙漠王 4000 4700 4500'},
+				{id:2104,name:'酷路泽 陆地巡洋舰'}
+			]},
+			{id:22,name:'本田',children:[
+				{id:2201,name:'东风本田'},
+				{id:2202,name:'广州本田'}
+			]},
+			{id:23,name:'尼桑',children:[
+				{id:2301,name:'颐达 骐达 天籁'},
+				{id:2302,name:'骊威 轩逸 阳光'},
+				{id:2303,name:'逍客 奇骏'},
+				{id:2304,name:'帕拉丁 帅客 御轩'},
+			]},
+			{id:24,name:'雷克萨斯',children:[
+				{id:2401,name:'ES、GS、LS系列'},
+			]},
+			{id:25,name:'铃木',children:[
+				{id:2501,name:'利亚纳 北斗星'},
+				{id:2502,name:'奥拓 雨燕'}
+			]},
+			{id:26,name:'斯巴鲁',children:[
+				{id:2601,name:'森林人 傲虎'}
+			]},
+			{id:28,name:'英菲尼迪',children:[
+				{id:2801,name:'FX35'},
+			]},
+			{id:29,name:'讴歌',children:[
+				{id:2601,name:'讴歌系列'},
+			]},
+			{id:22,name:'现代',children:[
+				{id:2201,name:'悦动 伊兰特 朗动'},
+				{id:2202,name:'名图 瑞纳 索纳塔'},
+				{id:2201,name:'新胜达 IX45'},
+				{id:2202,name:'智跑 千里马'}
+			]},
+			{id:23,name:'起亚',children:[
+				{id:2301,name:'赛拉图 福瑞迪'},
+				{id:2302,name:'嘉华'},
+				{id:2303,name:'K2 K3 狮跑'}
+			]},
+			{id:24,name:'进口现代',children:[
+				{id:2301,name:'IX45 雅尊'}
+			]},
+			{id:25,name:'进口起亚',children:[
+				{id:2301,name:'凯尊 索兰托'}
+			]},
+			{id:26,name:'奥迪',children:[
+				{id:2601,name:'Q3'},
+				{id:2602,name:'A4L Q5'},
+			{id:2603,name:'A6 A6L A8L'},
+				{id:2604,name:'A4L A5 A6L A7'}  
+			]},
+			{id:27,name:'大众',children:[
+				{id:2701,name:'夏朗'},
+				{id:2702,name:'新帕萨特'},
+				{id:2703,name:'高尔夫 郎镜'},
+				{id:2704,name:'郎行 朗逸'},
+			{id:2705,name:'新帕萨特'},
+			{id:2706,name:'途欢 途观 尚酷'}
+			]},
+			{id:28,name:'斯柯达',children:[
+				{id:2701,name:'明锐 晶锐'},
+				{id:2702,name:'速派 昊锐'}
+			]},
+			{id:29,name:'奔驰',children:[
+				{id:2901,name:'E系列 C系列 ML GL'},
+				{id:2902,name:'221 220 211 204 164'}
+			]},
+			{id:31,name:'宝马',children:[
+				{id:2701,name:'华晨宝马 新5系'},
+				{id:2702,name:'E83 E84 E70 E90'},
+				{id:2703,name:'X1 X3 X5'},
+			]},
+			{id:31,name:'保时捷',children:[
+				{id:310101,name:'卡宴 帕纳美娜'}
+			]},
+			{id:32,name:'沃尔沃',children:[
+				{id:3201,name:'S60L XC60 V40'}
+			]},
+			{id:33,name:'路虎',children:[
+				{id:3301,name:'揽胜 发现'},
+				{id:3302,name:'自由人 极光'},
+				{id:3303,name:'X1 X3 X5'}
+			]},
+			{id:34,name:'捷豹'},
+			{id:35,name:'别克',children:[
+				{id:3501,name:'凯越 君越 君威'},
+				{id:3502,name:'GL8 英朗 新君越'},
+				{id:3503,name:'陆尊 科雷昂'},
+			]},
+			{id:36,name:'雪佛兰',children:[
+				{id:3601,name:'乐风 赛欧 景程'},
+				{id:3602,name:'科鲁兹 爱唯欧 迈锐宝'}
+			]},
+			{id:37,name:'福特',children:[
+				{id:3701,name:'福克斯 蒙迪欧'},
+				{id:3702,name:'嘉年华 致胜 翼虎 翼博'},
+				{id:3703,name:'X1 X3 X5'}
+			]},
+			{id:38,name:'林肯',children:[
+				{id:3801,name:'领航员'},
+				{id:3802,name:'MKT MKX MKZ MKS'}
+			]},
+			{id:39,name:'悍马',children:[
+				{id:3901,name:'H2 H3 H3T GMC'}
+			]},
+			{id:41,name:'克莱斯勒 吉普',children:[
+				{id:4101,name:'吉普系列 300C'} 
+			]},
+			{id:42,name:'道奇'},
+			{id:43,name:'悍马',children:[
+				{id:4301,name:'H2 H3 H3T GMC'}   
+			]},
+			{id:44,name:'标致 雪铁龙',children:[
+				{id:4401,name:'爱丽舍 206 307 '},
+				{id:4402,name:'C5 508 4083008'}
+			]},
+			{id:45,name:'雷诺'}
+		];
+		wx.initi();
+	</script>
+</body>
+</html>

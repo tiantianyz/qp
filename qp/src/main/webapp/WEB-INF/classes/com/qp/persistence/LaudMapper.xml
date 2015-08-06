@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qp.persistence.LaudMapper">
+
+	<!-- mysql分页查询 -->
+	<sql id="pagingHeader"></sql>
+	<sql id="pagingFooter">limit ${pagingInfo.startIdx},#{pagingInfo.pageRows}</sql>
+	<sql id="countingHeader">SELECT COUNT(*) FROM(</sql>
+	<sql id="countingFooter">) t</sql>
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.qp.entity.Laud">
+		<![CDATA[
+			INSERT INTO LAUD
+		]]>
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="openId != null" >
+			OPEN_ID,
+	    </if>
+	    <if test="cusId != null" >
+			CUS_ID,
+	    </if>
+	    <if test="remark != null" >
+			REMARK,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    <if test="openId != null" >
+			#{openId},
+	    </if>
+	    <if test="cusId != null" >
+			#{cusId},
+	    </if>
+	    <if test="remark != null" >
+			#{remark},
+	    </if>
+	  </trim>
+	</insert>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="com.qp.entity.Laud">
+		<![CDATA[
+			DELETE FROM LAUD
+			WHERE OPEN_ID = #{openId} AND CUS_ID = #{cusId}
+		]]>
+	</delete>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.qp.entity.Laud">
+	    <![CDATA[
+			UPDATE LAUD 
+	    ]]>
+		<set>
+		<if test="cusId != null">
+    	<![CDATA[ CUS_ID = #{cusId}, ]]>
+		</if>
+		<if test="remark != null">
+    	<![CDATA[ REMARK = #{remark}, ]]>
+		</if>
+		</set>
+	    <![CDATA[
+	        WHERE OPEN_ID = #{openId}
+	    ]]>
+	</update>
+
+	<!-- 根据主键查询记录 -->
+	<select id="select" parameterType="long" resultMap="collectsList">
+		<include refid="sqlSelectAll" />
+		<![CDATA[
+			WHERE OPEN_ID = #{openId}
+		]]>
+	</select>
+
+	<!-- 条件查询所有记录 -->
+	<select id="selectList" parameterType="com.qp.entity.querybean.CollectsQB"
+		resultMap="collectsList">
+		<include refid="sqlSelectList" />
+	</select>
+
+	<!-- 分页条件查询所有记录 -->
+	<select id="selectPage" parameterType="PagingQueryBean"
+		resultMap="collectsList">
+		<include refid="pagingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="pagingFooter" />
+	</select>
+	<!-- 查询记录总数 -->
+	<select id="selectCount" parameterType="PagingQueryBean"
+		resultType="int">
+		<include refid="countingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="countingFooter" />
+	</select>
+
+	<resultMap id="collectsList" type="com.qp.entity.Laud">
+		<result property="openId" column="OPEN_ID" />
+		<result property="cusId" column="CUS_ID" />
+		<result property="remark" column="REMARK" />
+	</resultMap>
+
+	<sql id="sqlSelectList">
+		<include refid="sqlSelectAll" />
+		<where>
+			<if test="openId != null">
+			<![CDATA[ AND OPEN_ID = #{openId} ]]>
+			</if>
+			<if test="cusId != null">
+			<![CDATA[ AND CUS_ID = #{cusId} ]]>
+			</if>
+			<if test="remark != null">
+			<![CDATA[ AND REMARK = #{remark} ]]>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="sqlSelectPage">
+		<include refid="sqlSelectAll" />
+		<where>	     				
+	    <if test="queryBean.openId != null">
+		<![CDATA[ AND OPEN_ID = #{queryBean.openId} ]]>
+		</if>
+	    <if test="queryBean.cusId != null">
+		<![CDATA[ AND CUS_ID = #{queryBean.cusId} ]]>
+		</if>
+	    <if test="queryBean.remark != null">
+		<![CDATA[ AND REMARK = #{queryBean.remark} ]]>
+		</if>
+		</where>
+	</sql>
+	<sql id="sqlSelectAll">
+			SELECT
+				<include refid="sqlColumn" />
+			FROM LAUD 
+	</sql>
+	<sql id="sqlColumn">
+		OPEN_ID,CUS_ID,REMARK
+	</sql>
+</mapper>

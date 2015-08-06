@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="Keywords" content="汽配,北京,北京汽配,北京汽配在线">
+		<title>北京汽配在线</title>
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=yes" name="format-detection">
+		<link rel="stylesheet" media="all" href="css/style.css">
+		<script type="text/javascript">
+			(function(){
+				var viewPort = document.getElementById('viewPortId'),width= screen.availWidth;
+				if(Math.abs(window.orientation) == 90)
+					width= screen.availHeight;
+				if(!viewPort){
+					viewPort = document.createElement('meta');
+					viewPort.id='viewPortId';
+					viewPort.name='viewport'
+				}
+				viewPort.content='width=480,initial-scale='+width/480+',maximum-scale='+width/480+',minimum-scale='+width/480+',target-densitydpi=device-dpi,user-scalable=no';
+				document.getElementsByTagName('head')[0].appendChild(viewPort);
+			})(this);
+		</script>
+	</head>
+<body>
+	<div id="ads" class="q-r"></div>
+	<ul id="mlist" class="m-list">
+		<li>
+			<h3>北京瑞祥腾信汽配<a class="one-tel" href="tel:4008190789,1111">一键拨号</a></h3>
+			<p>主营：索纳塔</p>
+			<p>电话：<a href="tel:4008190789,1111">4008190789,1111</a>　010-87332280　13699127920</p>
+			<p>qq：763518957</p>
+			<p>地址：北京市朝阳区五方天雅汽配城南2-27号</p>
+			<p><i class=""></p>
+		</li>
+		<li>
+			<h3>北京瑞祥腾信汽配<a class="one-tel" href="tel:4008190789,1111">一键拨号</a></h3>
+			<p>主营：索纳塔</p>
+			<p>电话：<a href="tel:4008190789,1111">4008190789,1111</a>　010-87332280　13699127920</p>
+			<p>qq：763518957</p>
+			<p>地址：北京市朝阳区五方天雅汽配城南2-27号</p>
+		</li>
+		<li>
+			<h3>北京瑞祥腾信汽配<a class="one-tel" href="tel:4008190789,1111">一键拨号</a></h3>
+			<p>主营：索纳塔</p>
+			<p>电话：<a href="tel:4008190789,1111">4008190789,1111</a>　010-87332280　13699127920</p>
+			<p>qq：763518957</p>
+			<p>地址：北京市朝阳区五方天雅汽配城南2-27号</p>
+		</li>
+		<li>
+			<h3>北京瑞祥腾信汽配<a class="one-tel" href="tel:4008190789,1111">一键拨号</a></h3>
+			<p>主营：索纳塔</p>
+			<p>电话：<a href="tel:4008190789,1111">4008190789,1111</a>　010-87332280　13699127920</p>
+			<p>qq：763518957</p>
+			<p>地址：北京市朝阳区五方天雅汽配城南2-27号</p>
+		</li>
+		<li>
+			<h3>北京瑞祥腾信汽配<a class="one-tel" href="tel:4008190789,1111">一键拨号</a></h3>
+			<p>主营：索纳塔</p>
+			<p>电话：<a href="tel:4008190789,1111">4008190789,1111</a>　010-87332280　13699127920</p>
+			<p>qq：763518957</p>
+			<p>地址：北京市朝阳区五方天雅汽配城南2-27号</p>
+		</li>
+		<li>
+			<h3>北京瑞祥腾信汽配<a class="one-tel" href="tel:4008190789,1111">一键拨号</a></h3>
+			<p>主营：索纳塔</p>
+			<p>电话：<a href="tel:4008190789,1111">4008190789,1111</a>　010-87332280　13699127920</p>
+			<p>qq：763518957</p>
+			<p>地址：北京市朝阳区五方天雅汽配城南2-27号</p>
+		</li>
+		<li>
+			<h3>北京瑞祥腾信汽配<a class="one-tel" href="tel:4008190789,1111">一键拨号</a></h3>
+			<p>主营：索纳塔</p>
+			<p>电话：<a href="tel:4008190789,1111">4008190789,1111</a>　010-87332280　13699127920</p>
+			<p>qq：763518957</p>
+			<p>地址：北京市朝阳区五方天雅汽配城南2-27号</p>
+		</li>
+	</ul>
+	<script type="text/javascript" src="js/jquery/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="js/init.js"></script>
+	<script type="text/javascript">
+		var mlist = [
+			{id:1,name:"北京瑞祥腾信汽配",adr:'北京市朝阳区五方天雅汽配城南2-27号',phone:'4008190789',phone1:'010-87332280',phone2:'13699127920',qq:'763518957'},
+		];
+		wx.initm();
+	</script>
+</body>
+</html>

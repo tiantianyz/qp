@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qp.persistence.AdminDivisionMapper">
+
+	<!-- mysql分页查询 -->
+	<sql id="pagingHeader"></sql>
+	<sql id="pagingFooter">limit ${pagingInfo.startIdx},#{pagingInfo.pageRows}</sql>
+	<sql id="countingHeader">SELECT COUNT(*) FROM(</sql>
+	<sql id="countingFooter">) t</sql>
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.qp.entity.AdminDivision">
+		<![CDATA[
+			INSERT INTO admin_division
+		]]>
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="divisionPid != null" >
+			DIVISION_PID,
+	    </if>
+	    <if test="divisionCode != null" >
+			DIVISION_CODE,
+	    </if>
+	    <if test="divisionName != null" >
+			DIVISION_NAME,
+	    </if>
+	    <if test="divisionLevel != null" >
+			DIVISION_LEVEL,
+	    </if>
+	    <if test="sts != null" >
+			STS,
+	    </if>
+	    <if test="stsTime != null" >
+			STS_TIME,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    <if test="divisionPid != null" >
+			#{divisionPid},
+	    </if>
+	    <if test="divisionCode != null" >
+			#{divisionCode},
+	    </if>
+	    <if test="divisionName != null" >
+			#{divisionName},
+	    </if>
+	    <if test="divisionLevel != null" >
+			#{divisionLevel},
+	    </if>
+	    <if test="sts != null" >
+			#{sts},
+	    </if>
+	    <if test="stsTime != null" >
+			#{stsTime},
+	    </if>
+	  </trim>
+	  <selectKey resultType="Long" keyProperty="typeCusId"> 
+		<![CDATA[SELECT LAST_INSERT_ID()]]>　 
+	  </selectKey>
+	</insert>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			DELETE FROM admin_division
+				WHERE DIVISION_ID = #{divisionId}
+		]]>
+	</delete>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.qp.entity.AdminDivision">
+	    <![CDATA[
+			UPDATE admin_division 
+	    ]]>
+		<set>
+		<if test="divisionPid != null">
+    	<![CDATA[ DIVISION_PID = #{divisionPid}, ]]>
+		</if>
+		<if test="divisionCode != null">
+    	<![CDATA[ DIVISION_CODE = #{divisionCode}, ]]>
+		</if>
+		<if test="divisionName != null">
+    	<![CDATA[ DIVISION_NAME = #{divisionName}, ]]>
+		</if>
+		<if test="divisionLevel != null">
+    	<![CDATA[ DIVISION_LEVEL = #{divisionLevel}, ]]>
+		</if>
+		<if test="sts != null">
+    	<![CDATA[ STS = #{sts}, ]]>
+		</if>
+		<if test="stsTime != null">
+    	<![CDATA[ STS_TIME = #{stsTime}, ]]>
+		</if>
+		</set>
+	    <![CDATA[
+	        WHERE DIVISION_ID = #{divisionId}
+	    ]]>
+	</update>
+
+	<!-- 根据主键查询记录 -->
+	<select id="select" parameterType="long" resultMap="adminDivisionList">
+		<include refid="sqlSelectAll" />
+		<![CDATA[
+			WHERE DIVISION_ID = #{divisionId}
+		]]>
+	</select>
+
+	<!-- 条件查询所有记录 -->
+	<select id="selectList" parameterType="com.qp.entity.querybean.AdminDivisionQB"
+		resultMap="adminDivisionList">
+		<include refid="sqlSelectList" />
+	</select>
+
+	<!-- 分页条件查询所有记录 -->
+	<select id="selectPage" parameterType="PagingQueryBean"
+		resultMap="adminDivisionList">
+		<include refid="pagingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="pagingFooter" />
+	</select>
+	<!-- 查询记录总数 -->
+	<select id="selectCount" parameterType="PagingQueryBean"
+		resultType="int">
+		<include refid="countingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="countingFooter" />
+	</select>
+
+	<resultMap id="adminDivisionList" type="com.qp.entity.AdminDivision">
+		<result property="divisionId" column="DIVISION_ID" />
+		<result property="divisionPid" column="DIVISION_PID" />
+		<result property="divisionCode" column="DIVISION_CODE" />
+		<result property="divisionName" column="DIVISION_NAME" />
+		<result property="divisionLevel" column="DIVISION_LEVEL" />
+		<result property="sts" column="STS" />
+		<result property="stsTime" column="STS_TIME" />
+	</resultMap>
+
+	<sql id="sqlSelectList">
+		<include refid="sqlSelectAll" />
+		<where>
+			<if test="divisionId != null">
+			<![CDATA[ AND DIVISION_ID = #{divisionId} ]]>
+			</if>
+			<if test="divisionPid != null">
+			<![CDATA[ AND DIVISION_PID = #{divisionPid} ]]>
+			</if>
+			<if test="divisionCode != null">
+			<![CDATA[ AND DIVISION_CODE = #{divisionCode} ]]>
+			</if>
+			<if test="divisionName != null">
+			<![CDATA[ AND DIVISION_NAME = #{divisionName} ]]>
+			</if>
+			<if test="divisionLevel != null">
+			<![CDATA[ AND DIVISION_LEVEL = #{divisionLevel} ]]>
+			</if>
+			<if test="sts != null">
+			<![CDATA[ AND STS = #{sts} ]]>
+			</if>
+			<if test="stsTime != null">
+			<![CDATA[ AND STS_TIME = #{stsTime} ]]>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="sqlSelectPage">
+		<include refid="sqlSelectAll" />
+		<where>	     				
+	    <if test="queryBean.divisionId != null">
+		<![CDATA[ AND DIVISION_ID = #{queryBean.divisionId} ]]>
+		</if>
+	    <if test="queryBean.divisionPid != null">
+		<![CDATA[ AND DIVISION_PID = #{queryBean.divisionPid} ]]>
+		</if>
+	    <if test="queryBean.divisionCode != null">
+		<![CDATA[ AND DIVISION_CODE = #{queryBean.divisionCode} ]]>
+		</if>
+	    <if test="queryBean.divisionName != null">
+		<![CDATA[ AND DIVISION_NAME = #{queryBean.divisionName} ]]>
+		</if>
+	    <if test="queryBean.divisionLevel != null">
+		<![CDATA[ AND DIVISION_LEVEL = #{queryBean.divisionLevel} ]]>
+		</if>
+	    <if test="queryBean.sts != null">
+		<![CDATA[ AND STS = #{queryBean.sts} ]]>
+		</if>
+	    <if test="queryBean.stsTime != null">
+		<![CDATA[ AND STS_TIME = #{queryBean.stsTime} ]]>
+		</if>
+		</where>
+	</sql>
+	<sql id="sqlSelectAll">
+			SELECT
+				<include refid="sqlColumn" />
+			FROM admin_division 
+	</sql>
+	<sql id="sqlColumn">
+		DIVISION_ID,DIVISION_PID,DIVISION_CODE,DIVISION_NAME,DIVISION_LEVEL,STS,STS_TIME
+	</sql>
+</mapper>

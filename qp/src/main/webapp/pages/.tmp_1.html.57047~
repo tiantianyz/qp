@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="Keywords" content="汽配,北京,北京汽配,北京汽配在线">
+		<title>北京汽配在线</title>
+		<meta http-equiv="Pragma" content="no-cache">
+		<meta content="yes" name="apple-mobile-web-app-capable">
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta content="telephone=yes" name="format-detection">
+		<link rel="stylesheet" media="all" href="css/style.css">
+		<script type="text/javascript">
+			(function(){
+				var viewPort = document.getElementById('viewPortId'),width= screen.availWidth;
+				if(Math.abs(window.orientation) == 90)
+					width= screen.availHeight;
+				if(!viewPort){
+					viewPort = document.createElement('meta');
+					viewPort.id='viewPortId';
+					viewPort.name='viewport'
+				}
+				viewPort.content='width=480,initial-scale='+width/480+',maximum-scale='+width/480+',minimum-scale='+width/480+',target-densitydpi=device-dpi,user-scalable=no';
+				document.getElementsByTagName('head')[0].appendChild(viewPort);
+			})(this);
+		</script>
+	</head>
+<body>
+	<div id="ads" class="q-r"></div>
+	<ul id="typeLists" class="type-list1"></ul>
+	<script type="text/javascript" src="js/jquery/jquery-1.8.0.min.js"></script>
+	<script type="text/javascript" src="js/init.js"></script>
+	<script type="text/javascript">
+		var types = [{id:11,name:'易损件',children:[
+			{id:1101,name:'滤芯 '},
+			{id:1103,name:'油品'},
+			{id:1104,name:'火花塞'},
+			{id:1105,name:'灯泡'},
+			{id:1106,name:'喇叭'},
+			{id:1107,name:'雨刷'},
+			{id:1108,name:'氟'},
+			{id:1109,name:'汽车养护品'},
+			{id:1110,name:'刹车片 刹车盘'},
+			{id:1111,name:'离合器三件套'}
+		]},
+		{id:12,name:'底盘件',children:[
+			{id:1201,name:'减震器 弹簧'},
+			{id:1202,name:'半轴 球笼'},
+			{id:1203,name:'悬挂'},
+			{id:1204,name:'万向节 轴承'},
+			{id:1205,name:'球头 拉杆'},
+			{id:1205,name:'拉线'},
+		]},
+		{id:13,name:'车身',children:[
+			{id:1301,name:'大灯'},
+			{id:1302,name:'外观件'},
+			{id:1303,name:'安全气囊 仪表台'}
+		]},
+	{id:14,name:'发动机 变速箱',children:[
+			{id:1401,name:'发动机'},
+			{id:1402,name:'变速箱'},
+	{id:1403,name:'涡轮增压器'},
+	{id:1404,name:'三元催化转化'},
+	{id:1405,name:'消消音器'},
+	{id:1406,name:'皮带 水泵'},
+	{id:1407,name:'正时套件'}
+			
+		]},
+	{id:15,name:'附件',children:[
+			{id:1501,name:'起动机'},
+			{id:1502,name:'发电机'},
+	{id:1503,name:'方向机'},
+	{id:1504,name:'转向助力泵'},
+	{id:1505,name:'压缩机'}
+		]},
+      {id:16,name:'电气设备',children:[
+			{id:1601,name:'点火线圈'},
+			{id:1602,name:'电喷配件'},
+	{id:1603,name:'涡轮增压器'},
+	{id:1604,name:'电子扇'},
+	{id:1605,name:'汽油泵'},
+	{id:1606,name:'ABS传感器'}
+	   ]}];
+		wx.initi();
+	</script>
+</body>
+</html>

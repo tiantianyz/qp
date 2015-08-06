@@ -1,0 +1,185 @@
+{
+    "prodBaseInfo": {
+        "prodType": 1,
+        "supplierId": 1,
+        "prodName": "testaddProduct",
+        "prodDesc": "hello world",
+        "serviceLanguage": "english",
+        "feeInclude": "feeInclude",
+        "feeNotInclude": "feeNotInclude",
+        "gatherTime": "2014-12-09 13:00:00",
+        "gatherPlace": "gatherPlace",
+        "otherAttentions": "otherAttentions",
+        "trafficDesc": "trafficDesc",
+        "prodDuring": "prodDuring",
+        "prodPriceCurrency": "USD",
+        "ownExpensive": "ownExpensive",
+        "nationId": 7,
+        "cityId": 52,
+        "nationName": "法国",
+        "cityName": "巴黎",
+        "gatherTimezone": "gatherTimezone",
+        "gatherPlaceDesc": "gatherPlaceDesc",
+        "proEndTime": "proEndTime",
+        "proEndTimezone": "proEndTimezone",
+        "proEndPlace": "proEndPlace",
+        "groupMinNum": 1,
+        "groupMaxNum": 5,
+        "tip": "tip",
+        "attention": "attention",
+        "orderNum": 2,
+        "sendGroupDate": "2014-11-01,2014-11-02,2014-11-03",
+        "viewPrice": "123.456",
+        "prodPicList": [
+            {
+                "proPicUrl": "proPicUrl1111111",
+                "proPicDesc": "proPicDesc"
+            },
+            {
+                "proPicUrl": "proPicUrl22222222",
+                "proPicDesc": "proPicDesc"
+            },
+            {
+                "proPicUrl": "proPicUrl33333333",
+                "proPicDesc": "proPicDesc"
+            }
+        ]
+    },
+    "prodTripList": [
+        {
+            "tripDay": 1,
+            "tripCountry": "tripCountry",
+            "tripCity": "tripCity",
+            "tripDetail": "tripDetail",
+            "tripMeals": "tripMeals",
+            "tripHotel": "tripHotel",
+            "tripRemark": "tripRemark",
+            "nationId": 7,
+            "cityId": 52,
+            "tripPicList": [
+                {
+                    "tripPicUrl": "aaaaaaaaaa",
+                    "tripPicDesc": "tripPicDesc"
+                },
+                {
+                    "tripPicUrl": "bbbbbbbbbbbb",
+                    "tripPicDesc": "tripPicDesc"
+                },
+                {
+                    "tripPicUrl": "bccccccccccc",
+                    "tripPicDesc": "tripPicDesc"
+                }
+            ]
+        },
+        {
+            "tripDay": 2,
+            "tripCountry": "tripCountry",
+            "tripCity": "tripCity",
+            "tripDetail": "tripDetail",
+            "tripMeals": "tripMeals",
+            "tripHotel": "tripHotel",
+            "tripRemark": "tripRemark",
+            "nationId": 7,
+            "cityId": 52,
+            "tripPicList": [
+                {
+                    "tripPicUrl": "1111111111",
+                    "tripPicDesc": "tripPicDesc"
+                },
+                {
+                    "tripPicUrl": "22222222222",
+                    "tripPicDesc": "tripPicDesc"
+                },
+                {
+                    "tripPicUrl": "33333333333333",
+                    "tripPicDesc": "tripPicDesc"
+                }
+            ]
+        },
+        {
+            "tripDay": 3,
+            "tripCountry": "tripCountry",
+            "tripCity": "tripCity",
+            "tripDetail": "tripDetail",
+            "tripMeals": "tripMeals",
+            "tripHotel": "tripHotel",
+            "tripRemark": "tripRemark",
+            "nationId": 7,
+            "cityId": 52,
+            "tripPicList": [
+                {
+                    "tripPicUrl": "aaaaa1111111111",
+                    "tripPicDesc": "tripPicDesc"
+                },
+                {
+                    "tripPicUrl": "bbbbbbbb2222222",
+                    "tripPicDesc": "tripPicDesc"
+                },
+                {
+                    "tripPicUrl": "cccccc3333333",
+                    "tripPicDesc": "tripPicDesc"
+                }
+            ]
+        }
+    ],
+    "prodPriceList": [
+        {
+            "prodPriceType": 2,
+            "price": 123.4567,
+            "onshelfNum": 50,
+            "ageFrom": 1,
+            "ageTo": 7
+        },
+        {
+            "prodPriceType": 2,
+            "priceCondition": "priceCondition",
+            "price": 123.4567,
+            "onshelfNum": 50
+        },
+        {
+            "prodPriceType": 1,
+            "price": 123.4567,
+            "onshelfNum": 50,
+            "minNum": 1,
+            "maxNum": 4
+        },
+        {
+            "prodPriceType": 1,
+            "priceCondition": "priceCondition",
+            "price": 123.4567,
+            "onshelfNum": 50,
+            "minNum": 1,
+            "maxNum": 4,
+            "ageFrom": 1,
+            "ageTo": 7
+        }
+    ],
+    "upgradeServiceList": [
+        {
+            "upgradeDesc": "测试批量1",
+            "upgradePrice": 123.4567,
+            "onshelfNum": 40
+        },
+        {
+            "upgradeDesc": "测试批量2",
+            "upgradePrice": 123.4567,
+            "onshelfNum": 50
+        },
+        {
+            "upgradeDesc": "测试批量3",
+            "upgradePrice": 123.4567,
+            "onshelfNum": 60
+        }
+    ],
+    "themeList": [
+        {
+            "themeId": 1
+        },
+        {
+            "themeId": 5
+        },
+        {
+            "themeId": 6
+        }
+    ]
+}

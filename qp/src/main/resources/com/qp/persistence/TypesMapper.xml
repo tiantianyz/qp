@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qp.persistence.TypesMapper">
+
+	<!-- mysql分页查询 -->
+	<sql id="pagingHeader"></sql>
+	<sql id="pagingFooter">limit ${pagingInfo.startIdx},#{pagingInfo.pageRows}</sql>
+	<sql id="countingHeader">SELECT COUNT(*) FROM(</sql>
+	<sql id="countingFooter">) t</sql>
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.qp.entity.Types">
+		<selectKey keyProperty="typesId" resultType="String" order="BEFORE">
+			SELECT SYS_GUID() FROM DUAL
+		</selectKey>
+		<![CDATA[
+			INSERT INTO types
+		]]>
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+			TYPES_ID,
+	    <if test="typesName != null" >
+			TYPES_NAME,
+	    </if>
+	    <if test="typesOrder != null" >
+			TYPES_ORDER,
+	    </if>
+	    <if test="typesSts != null" >
+			TYPES_STS,
+	    </if>
+	    <if test="typesPid != null" >
+			TYPES_PID,
+	    </if>
+	    <if test="typesTimes != null" >
+			TYPES_TIMES,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides="," >
+	  	#{typesId},
+	    <if test="typesName != null" >
+			#{typesName},
+	    </if>
+	    <if test="typesOrder != null" >
+			#{typesOrder},
+	    </if>
+	    <if test="typesSts != null" >
+			#{typesSts},
+	    </if>
+	    <if test="typesPid != null" >
+			#{typesPid},
+	    </if>
+	    <if test="typesTimes != null" >
+			#{typesTimes},
+	    </if>
+	  </trim>
+	</insert>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			DELETE FROM types
+				WHERE TYPES_ID = #{typesId}
+		]]>
+	</delete>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.qp.entity.Types">
+	    <![CDATA[
+			UPDATE types 
+	    ]]>
+		<set>
+		<if test="typesName != null">
+    	<![CDATA[ TYPES_NAME = #{typesName}, ]]>
+		</if>
+		<if test="typesOrder != null">
+    	<![CDATA[ TYPES_ORDER = #{typesOrder}, ]]>
+		</if>
+		<if test="typesSts != null">
+    	<![CDATA[ TYPES_STS = #{typesSts}, ]]>
+		</if>
+		<if test="typesPid != null">
+    	<![CDATA[ TYPES_PID = #{typesPid}, ]]>
+		</if>
+		<if test="typesTimes != null">
+    	<![CDATA[ TYPES_TIMES = TYPES_TIMES+1  ]]>
+		</if>
+		</set>
+	    <![CDATA[
+	        WHERE TYPES_ID = #{typesId}
+	    ]]>
+	</update>
+
+	<!-- 根据主键查询记录 -->
+	<select id="select" parameterType="long" resultMap="typesList">
+		<include refid="sqlSelectAll" />
+		<![CDATA[
+			WHERE TYPES_ID = #{typesId}
+		]]>
+	</select>
+
+	<!-- 条件查询所有记录 -->
+	<select id="selectList" parameterType="com.qp.entity.querybean.TypesQB"
+		resultMap="typesList">
+		<include refid="sqlSelectList" />
+	</select>
+
+	<!-- 分页条件查询所有记录 -->
+	<select id="selectPage" parameterType="PagingQueryBean"
+		resultMap="typesList">
+		<include refid="pagingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="pagingFooter" />
+	</select>
+	<!-- 查询记录总数 -->
+	<select id="selectCount" parameterType="PagingQueryBean"
+		resultType="int">
+		<include refid="countingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="countingFooter" />
+	</select>
+	<!-- 分页条件查询所有记录 -->
+	<select id="selectComplex" parameterType="PagingQueryBean" resultMap="typesComplex">
+		<include refid="pagingHeader" />
+		<include refid="sqlComplex" />
+		<include refid="pagingFooter" />
+	</select>
+	<!-- 查询记录总数 -->
+	<select id="selectComplexCount" parameterType="PagingQueryBean"
+		resultType="int">
+		<include refid="countingHeader" />
+		<include refid="sqlComplex" />
+		<include refid="countingFooter" />
+	</select>
+	<sql id="sqlComplex">
+		SELECT T.TYPES_ID,T.TYPES_NAME,T.TYPES_ORDER,T.TYPES_STS,T.TYPES_PID,TC.CUS_ID,T.TYPES_TIMES
+		FROM TYPES T,TYPE_CUS TC
+		WHERE T.TYPES_ID=TC.TYPES_ID 
+		<if test="queryBean.typesId != null">
+		<![CDATA[ AND T.TYPES_ID = #{queryBean.typesId} ]]>
+		</if>
+		ORDER BY TC.TC_ORDER DESC
+	</sql>
+
+	<resultMap id="typesList" type="com.qp.entity.Types">
+		<result property="typesId" column="TYPES_ID" />
+		<result property="typesName" column="TYPES_NAME" />
+		<result property="typesOrder" column="TYPES_ORDER" />
+		<result property="typesSts" column="TYPES_STS" />
+		<result property="typesPid" column="TYPES_PID" />
+		<result property="typesTimes" column="TYPES_TIMES" />
+	</resultMap>
+	<resultMap id="typesComplex" type="com.qp.entity.TypeCus">
+		<result property="typesId" column="TYPES_ID" />
+		<result property="typesName" column="TYPES_NAME" />
+		<result property="tcOrder" column="TC_ORDER" />
+		<result property="typesSts" column="TYPES_STS" />
+		<result property="typesPid" column="TYPES_PID" />
+		<result property="typeCusId" column="TYPES_CUS_ID" />
+		<result property="cusId" column="CUS_ID" />
+		<result property="typesTimes" column="TYPES_TIMES" />
+	</resultMap>
+
+	<sql id="sqlSelectList">
+		<include refid="sqlSelectAll" />
+		<where>
+			<if test="typesId != null">
+			<![CDATA[ AND TYPES_ID = #{typesId} ]]>
+			</if>
+			<if test="typesName != null">
+			<![CDATA[ AND TYPES_NAME = #{typesName} ]]>
+			</if>
+			<if test="typesOrder != null">
+			<![CDATA[ AND TYPES_ORDER = #{typesOrder} ]]>
+			</if>
+			<if test="typesSts != null">
+			<![CDATA[ AND TYPES_STS = #{typesSts} ]]>
+			</if>
+			<if test="typesPid != null">
+			<![CDATA[ AND TYPES_PID = #{typesPid} ]]>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="sqlSelectPage">
+		<include refid="sqlSelectAll" />
+		<where>	     				
+	    <if test="queryBean.typesId != null">
+		<![CDATA[ AND TYPES_ID = #{queryBean.typesId} ]]>
+		</if>
+	    <if test="queryBean.typesName != null">
+		<![CDATA[ AND TYPES_NAME = #{queryBean.typesName} ]]>
+		</if>
+	    <if test="queryBean.typesOrder != null">
+		<![CDATA[ AND TYPES_ORDER = #{queryBean.typesOrder} ]]>
+		</if>
+	    <if test="queryBean.typesSts != null">
+		<![CDATA[ AND TYPES_STS = #{queryBean.typesSts} ]]>
+		</if>
+	    <if test="queryBean.typesPid != null">
+		<![CDATA[ AND TYPES_PID = #{queryBean.typesPid} ]]>
+		</if>
+		</where>
+	</sql>
+	<sql id="sqlSelectAll">
+			SELECT
+				<include refid="sqlColumn" />
+			FROM types 
+	</sql>
+	<sql id="sqlColumn">
+		TYPES_ID,TYPES_NAME,TYPES_ORDER,TYPES_STS,TYPES_PID,TYPES_TIMES
+	</sql>
+</mapper>

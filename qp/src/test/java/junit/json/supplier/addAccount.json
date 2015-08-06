@@ -1,0 +1,11 @@
+{
+	"accountType":1,
+	"currencyType":"USD",
+	"alipayAccount":"test@alipay.com",
+	"paypalEmail":"paypal@paypal.com",
+	"paypalNation":"USA",
+	"unionpayBank":"建行",
+	"unionpayBankName":"建行",
+	"unionpayNation":"china",
+	"unionpayAccount":"12312"
+}

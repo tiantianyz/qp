@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qp.persistence.CusImgsMapper">
+
+	<!-- mysql分页查询 -->
+	<sql id="pagingHeader"></sql>
+	<sql id="pagingFooter">limit ${pagingInfo.startIdx},#{pagingInfo.pageRows}</sql>
+	<sql id="countingHeader">SELECT COUNT(*) FROM(</sql>
+	<sql id="countingFooter">) t</sql>
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.qp.entity.CusImgs">
+		<![CDATA[
+			INSERT INTO cus_imgs
+		]]>
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="cusId != null" >
+			CUS_ID,
+	    </if>
+	    <if test="imgsAddr != null" >
+			IMGS_ADDR,
+	    </if>
+	    <if test="sts != null" >
+			STS,
+	    </if>
+	    <if test="typesId != null" >
+			TYPES_ID,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    <if test="cusId != null" >
+			#{cusId},
+	    </if>
+	    <if test="imgsAddr != null" >
+			#{imgsAddr},
+	    </if>
+	    <if test="sts != null" >
+			#{sts},
+	    </if>
+	    <if test="typesId != null" >
+			#{typesId},
+	    </if>
+	  </trim>
+	  <selectKey resultType="Long" keyProperty="cusImgId"> 
+		<![CDATA[SELECT LAST_INSERT_ID() ]]>
+	　 </selectKey> 
+	</insert>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			DELETE FROM CUS_IMGS
+				WHERE CUS_IMG_ID = #{cusImgId}
+		]]>
+	</delete>
+	<delete id="deleteByCusId" parameterType="long" flushCache="true">
+		<![CDATA[
+			DELETE FROM CUS_IMGS WHERE CUS_ID = #{cusId}
+		]]>
+	</delete>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.qp.entity.CusImgs">
+	    <![CDATA[
+			UPDATE cus_imgs 
+	    ]]>
+		<set>
+		<if test="cusId != null">
+    	<![CDATA[ CUS_ID = #{cusId}, ]]>
+		</if>
+		<if test="imgsAddr != null">
+    	<![CDATA[ IMGS_ADDR = #{imgsAddr}, ]]>
+		</if>
+		<if test="sts != null">
+    	<![CDATA[ STS = #{sts}, ]]>
+		</if>
+		<if test="typesId != null">
+    	<![CDATA[ TYPES_ID = #{typesId}, ]]>
+		</if>
+		</set>
+	    <![CDATA[
+	        WHERE CUS_IMG_ID = #{cusImgId}
+	    ]]>
+	</update>
+
+	<!-- 根据主键查询记录 -->
+	<select id="select" parameterType="long" resultMap="cusImgsList">
+		<include refid="sqlSelectAll" />
+		<![CDATA[
+			WHERE CUS_IMG_ID = #{cusImgId}
+		]]>
+	</select>
+
+	<!-- 条件查询所有记录 -->
+	<select id="selectList" parameterType="com.qp.entity.querybean.CusImgsQB"
+		resultMap="cusImgsList">
+		<include refid="sqlSelectList" />
+	</select>
+
+	<!-- 分页条件查询所有记录 -->
+	<select id="selectPage" parameterType="PagingQueryBean"
+		resultMap="cusImgsList">
+		<include refid="pagingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="pagingFooter" />
+	</select>
+	<!-- 查询记录总数 -->
+	<select id="selectCount" parameterType="PagingQueryBean"
+		resultType="int">
+		<include refid="countingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="countingFooter" />
+	</select>
+
+
+
+	<resultMap id="cusImgsList" type="com.qp.entity.CusImgs">
+		<result property="cusId" column="CUS_ID" />
+		<result property="imgsAddr" column="IMGS_ADDR" />
+		<result property="sts" column="STS" />
+		<result property="typesId" column="TYPES_ID" />
+		<result property="cusImgId" column="CUS_IMG_ID" />
+	</resultMap>
+
+	<sql id="sqlSelectList">
+		<include refid="sqlSelectAll" />
+		<where>
+			<if test="cusId != null">
+			<![CDATA[ AND CUS_ID = #{cusId} ]]>
+			</if>
+			<if test="imgsAddr != null">
+			<![CDATA[ AND IMGS_ADDR = #{imgsAddr} ]]>
+			</if>
+			<if test="sts != null">
+			<![CDATA[ AND STS = #{sts} ]]>
+			</if>
+			<if test="typesId != null">
+			<![CDATA[ AND TYPES_ID = #{typesId} ]]>
+			</if>
+			<if test="cusImgId != null">
+			<![CDATA[ AND CUS_IMG_ID = #{cusImgId} ]]>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="sqlSelectPage">
+		<include refid="sqlSelectAll" />
+		<where>	     				
+	    <if test="queryBean.cusId != null">
+		<![CDATA[ AND CUS_ID = #{queryBean.cusId} ]]>
+		</if>
+	    <if test="queryBean.imgsAddr != null">
+		<![CDATA[ AND IMGS_ADDR = #{queryBean.imgsAddr} ]]>
+		</if>
+	    <if test="queryBean.sts != null">
+		<![CDATA[ AND STS = #{queryBean.sts} ]]>
+		</if>
+	    <if test="queryBean.typesId != null">
+		<![CDATA[ AND TYPES_ID = #{queryBean.typesId} ]]>
+		</if>
+	    <if test="queryBean.cusImgId != null">
+		<![CDATA[ AND CUS_IMG_ID = #{queryBean.cusImgId} ]]>
+		</if>
+		</where>
+	</sql>
+	<sql id="sqlSelectAll">
+			SELECT
+				<include refid="sqlColumn" />
+			FROM cus_imgs 
+	</sql>
+	<sql id="sqlColumn">
+		CUS_ID,IMGS_ADDR,STS,TYPES_ID,CUS_IMG_ID
+	</sql>
+</mapper>

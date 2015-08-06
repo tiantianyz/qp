@@ -1,0 +1,80 @@
+{
+    "prodBaseInfo": {
+        "prodType": 1,
+        "supplierId":1,
+        "prodName": "testaddProduct",
+        "prodDesc": "hello world",
+        "serviceLanguage": "english",
+        "feeInclude": "feeInclude",
+        "feeNotInclude": "feeNotInclude",
+        "gatherTime": "2014-12-09 13:00:00",
+        "gatherPlace": "gatherPlace",
+        "otherAttentions": "otherAttentions",
+        "trafficDesc": "trafficDesc",
+        "prodDuring": "prodDuring",
+        "prodPriceCurrency": "USD",
+        "ownExpensive": "ownExpensive",
+        "nationId": 7,
+        "cityId": 52,
+        "nationName": "法国",
+        "cityName": "巴黎",
+        "minPicUrl":"minPicUrl",
+        "midPicUrl":"midPicUrl",
+        "maxPicUrl":"maxPicUrl",
+        "logoUrl":"logoUrl",
+        "gatherTimezone":"gatherTimezone",
+        "gatherPlaceDesc":"gatherPlaceDesc",
+        "proEndTime":"proEndTime",
+        "proEndTimezone":"proEndTimezone",
+        "proEndPlace":"proEndPlace",
+        "groupMinNum":1,
+        "groupMaxNum":5,
+        "tip":"tip",
+        "attention":"attention",
+        "orderNum":2,
+        "sendGroupDate":"2014-11-01,2014-11-02,2014-11-03"
+    },
+    "prodTripList": [
+        {
+            "tripDay": 1,
+            "tripCountry": "tripCountry",
+            "tripCity": "tripCity",
+            "tripDetail": "tripDetail",
+            "tripMeals": "tripMeals",
+            "tripHotel": "tripHotel",
+            "tripRemark": "tripRemark",
+            "nationId":7,
+            "cityId":52,
+            "tripPicList": [
+                {
+                    "tripPicUrl": "tripPicUrl",
+                    "tripPicDesc": "tripPicDesc"
+                }
+            ]
+        }
+    ],
+    "prodPriceList": [
+        {
+            "prodPriceType": 1,
+            "priceCondition": "priceCondition",
+            "price": 123.4567,
+            "onshelfNum": 50,
+            "minNum":1,
+            "maxNum":4,
+            "ageFrom":1,
+            "ageTo":7
+        }
+    ],
+    "upgradeServiceList": [
+        {
+            "upgradeDesc": "upgradeDesc",
+            "upgradePrice": 123.4567,
+            "onshelfNum": 40
+        }
+    ],
+    "themeList": [
+        {
+            "themeId": 1
+        }
+    ]
+}

@@ -1,0 +1,48 @@
+{
+    "prodBaseInfo": {
+        "prodId": 37,
+        "prodType": 1,
+        "supplierId": 1,
+        "prodName": "测试修改啊",
+        "prodDesc": "hello world",
+        "serviceLanguage": "english",
+        "feeInclude": "feeInclude",
+        "feeNotInclude": "feeNotInclude",
+        "gatherTime": "2014-12-09 13:00:00",
+        "gatherPlace": "gatherPlace",
+        "otherAttentions": "otherAttentions",
+        "trafficDesc": "trafficDesc",
+        "prodDuring": "prodDuring",
+        "prodPriceCurrency": "USD",
+        "ownExpensive": "ownExpensive",
+        "nationId": 7,
+        "cityId": 52,
+        "nationName": "法国",
+        "cityName": "巴黎",
+        "gatherTimezone": "gatherTimezone",
+        "gatherPlaceDesc": "gatherPlaceDesc",
+        "proEndTime": "proEndTime",
+        "proEndTimezone": "proEndTimezone",
+        "proEndPlace": "proEndPlace",
+        "groupMinNum": 1,
+        "groupMaxNum": 5,
+        "tip": "tip",
+        "attention": "attention",
+        "orderNum": 2,
+        "sendGroupDate": "2014-11-01,2014-11-02,2014-11-03",
+        "viewPrice": "123.456"
+    },
+    "prodPriceList": [
+        {
+            "priceId": 13,
+            "prodPriceType": 1,
+            "priceCondition": "priceConditionUpdate",
+            "price": 123456.789,
+            "onshelfNum": 50,
+            "minNum": 10,
+            "maxNum": 40,
+            "ageFrom": 1,
+            "ageTo": 7
+        }
+    ]
+}

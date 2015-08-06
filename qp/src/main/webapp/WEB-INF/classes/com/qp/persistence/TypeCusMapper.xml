@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qp.persistence.TypeCusMapper">
+
+	<!-- mysql分页查询 -->
+	<sql id="pagingHeader"></sql>
+	<sql id="pagingFooter">limit ${pagingInfo.startIdx},#{pagingInfo.pageRows}</sql>
+	<sql id="countingHeader">SELECT COUNT(*) FROM(</sql>
+	<sql id="countingFooter">) t</sql>
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.qp.entity.TypeCus">
+		<![CDATA[
+			INSERT INTO type_cus
+		]]>
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="typesId != null" >
+			TYPES_ID,
+	    </if>
+	    <if test="cusId != null" >
+			CUS_ID,
+	    </if>
+	    <if test="tcOrder != null" >
+			TC_ORDER,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    <if test="typesId != null" >
+			#{typesId},
+	    </if>
+	    <if test="cusId != null" >
+			#{cusId},
+	    </if>
+	    <if test="tcOrder != null" >
+			#{tcOrder},
+	    </if>
+	  </trim>
+	  <selectKey resultType="Long" keyProperty="typeCusId"> 
+		<![CDATA[SELECT LAST_INSERT_ID()]]>　 
+	  </selectKey> 
+	</insert>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			DELETE FROM type_cus
+				WHERE TYPE_CUS_ID = #{typeCusId}
+		]]>
+	</delete>
+	<!-- 删除记录 -->
+	<delete id="removeTcs" parameterType="com.qp.entity.querybean.TypeCusQB">
+		<![CDATA[
+			DELETE FROM type_cus
+			WHERE CUS_ID = #{cusId} AND TYPE_CUS_ID!=1
+		]]>
+	</delete>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.qp.entity.TypeCus">
+	    <![CDATA[
+			UPDATE type_cus 
+	    ]]>
+		<set>
+		<if test="typesId != null">
+    	<![CDATA[ TYPES_ID = #{typesId}, ]]>
+		</if>
+		<if test="cusId != null">
+    	<![CDATA[ CUS_ID = #{cusId}, ]]>
+		</if>
+		<if test="tcOrder != null">
+    	<![CDATA[ TC_ORDER = #{tcOrder}, ]]>
+		</if>
+		<if test="maxOrder == 'max'">
+    	<![CDATA[ TC_ORDER = (SELECT MAX(TC.TC_ORDER)+1 FROM TYPE_CUS TC  WHERE  TC.TYPES_ID=#{typesId}), ]]>
+		</if>
+		</set>
+	    <![CDATA[
+	        WHERE TYPE_CUS_ID = #{typeCusId}
+	    ]]>
+	</update>
+
+	<!-- 根据主键查询记录 -->
+	<select id="select" parameterType="long" resultMap="typeCusList">
+		<include refid="sqlSelectAll" />
+		<![CDATA[
+			WHERE TYPE_CUS_ID = #{typeCusId}
+		]]>
+	</select>
+	<!-- 根据主键查询记录 -->
+	<select id="getMaxOrder" parameterType="long" resultType="long">
+		<![CDATA[
+			SELECT MAX(TC.TC_ORDER)+1 FROM TYPE_CUS TC  WHERE  TC.TYPES_ID=#{typeId}
+		]]>
+	</select>
+
+	<!-- 条件查询所有记录 -->
+	<select id="selectList" parameterType="com.qp.entity.querybean.TypeCusQB"
+		resultMap="typeCusList">
+		<include refid="sqlSelectList" />
+	</select>
+
+	<!-- 分页条件查询所有记录 -->
+	<select id="selectPage" parameterType="PagingQueryBean"
+		resultMap="typeCusList">
+		<include refid="pagingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="pagingFooter" />
+	</select>
+	<!-- 查询记录总数 -->
+	<select id="selectCount" parameterType="PagingQueryBean"
+		resultType="int">
+		<include refid="countingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="countingFooter" />
+	</select>
+	<!-- 分页条件查询所有记录 -->
+	<select id="selectComplex" parameterType="PagingQueryBean" resultMap="customerList">
+		<include refid="pagingHeader" />
+		<include refid="sqlComplex" />
+		<include refid="pagingFooter" />
+	</select>
+	<!-- 查询记录总数 -->
+	<select id="selectComplexCount" parameterType="PagingQueryBean" resultType="int">
+		<include refid="countingHeader" />
+		<include refid="sqlComplex" />
+		<include refid="countingFooter" />
+	</select>
+	<resultMap id="typeCusList" type="com.qp.entity.TypeCus">
+		<result property="typeCusId" column="TYPE_CUS_ID" />
+		<result property="typesId" column="TYPES_ID" />
+		<result property="cusId" column="CUS_ID" />
+		<result property="tcOrder" column="TC_ORDER" />
+	</resultMap>
+	<resultMap id="customerList" type="com.qp.entity.Customer">
+		<result property="cusId" column="CUS_ID" />
+		<result property="cusName" column="CUS_NAME" />
+		<result property="cusPhone" column="CUS_PHONE" />
+		<result property="cusPhone1" column="CUS_PHONE1" />
+		<result property="cusPhone2" column="CUS_PHONE2" />
+		<result property="cusRemark" column="CUS_REMARK" />
+		<result property="cusAddr" column="CUS_ADDR" />
+		<result property="cusOrder" column="CUS_ORDER" />
+		<result property="cusDate" column="CUS_DATE" />
+		<result property="cusTimes" column="CUS_TIMES" />
+		<result property="cusSite" column="CUS_SITE" />
+		<result property="cusDesc" column="CUS_DESC" />
+		<result property="cusHeadImg" column="CUS_HEAD_IMG" />
+		<result property="openId" column="OPEN_ID" />
+		<result property="lop" column="LOP" />
+		
+	</resultMap>
+	<sql id="sqlSelectList">
+		<include refid="sqlSelectAll" />
+		<where>
+			<if test="typeCusId != null">
+			<![CDATA[ AND TYPE_CUS_ID = #{typeCusId} ]]>
+			</if>
+			<if test="typesId != null">
+			<![CDATA[ AND TYPES_ID = #{typesId} ]]>
+			</if>
+			<if test="cusId != null">
+			<![CDATA[ AND CUS_ID = #{cusId} ]]>
+			</if>
+			<if test="tcOrder != null">
+			<![CDATA[ AND TC_ORDER = #{tcOrder} ]]>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="sqlSelectPage">
+		<include refid="sqlSelectAll" />
+		<where>	     				
+	    <if test="queryBean.typeCusId != null">
+		<![CDATA[ AND TYPE_CUS_ID = #{queryBean.typeCusId} ]]>
+		</if>
+	    <if test="queryBean.typesId != null">
+		<![CDATA[ AND TYPES_ID = #{queryBean.typesId} ]]>
+		</if>
+	    <if test="queryBean.cusId != null">
+		<![CDATA[ AND CUS_ID = #{queryBean.cusId} ]]>
+		</if>
+	    <if test="queryBean.tcOrder != null">
+		<![CDATA[ AND TC_ORDER = #{queryBean.tcOrder} ]]>
+		</if>
+		</where>
+	</sql>
+	<sql id="sqlSelectAll">
+			SELECT
+				<include refid="sqlColumn" />
+			FROM type_cus 
+	</sql>
+	<sql id="sqlColumn">
+		TYPE_CUS_ID,TYPES_ID,CUS_ID,TC_ORDER
+	</sql>
+	<sql id="sqlComplex">
+			SELECT TCU.CUS_ID,TCU.CUS_NAME,TCU.CUS_PHONE,TCU.CUS_PHONE1,TCU.CUS_PHONE2,TCU.CUS_REMARK,TCU.CUS_ADDR,TCU.CUS_ORDER,TCU.CUS_DATE,
+				TCU.CUS_TIMES,TCU.CUS_SITE,TCU.CUS_DESC,TCU.CUS_HEAD_IMG,COL.OPEN_ID,L.OPEN_ID LOP
+			FROM(
+		SELECT C.CUS_ID,C.CUS_NAME,C.CUS_PHONE,C.CUS_PHONE1,C.CUS_PHONE2,C.CUS_REMARK,C.CUS_ADDR,C.CUS_ORDER,C.CUS_DATE,C.CUS_TIMES,
+			C.CUS_SITE,C.CUS_DESC,C.CUS_HEAD_IMG
+		FROM 
+			<if test="queryBean.typesId != null">
+				TYPE_CUS TC,
+			</if>
+		CUSTOMER C
+		<where>
+			<if test="queryBean.typesId != null">
+			<![CDATA[ TC.CUS_ID=C.CUS_ID AND TC.TYPES_ID = #{queryBean.typesId} ]]>
+			</if>
+			<if test="queryBean.typesId == null and queryBean.openId != null and queryBean.openId!=''">
+			<![CDATA[ AND EXISTS(SELECT COL.CUS_ID FROM COLLECTS COL WHERE C.CUS_ID =COL.CUS_ID AND COL.OPEN_ID=#{queryBean.openId} ) ]]>
+			</if>
+		</where>
+			<if test="queryBean.typesId != null">
+				ORDER BY TC.TC_ORDER DESC,C.CUS_ORDER DESC,C.CUS_TIMES DESC
+			</if>
+			) TCU LEFT JOIN COLLECTS COL ON COL.CUS_ID=TCU.CUS_ID 
+			<if test="queryBean.openId != null and queryBean.openId!=''">
+				AND COL.OPEN_ID=#{queryBean.openId} 
+			</if>
+			 LEFT JOIN LAUD L ON TCU.CUS_ID=L.CUS_ID
+			<if test="queryBean.openId != null and queryBean.openId!=''">
+				AND L.OPEN_ID=#{queryBean.openId}
+			</if>
+	</sql>
+</mapper>

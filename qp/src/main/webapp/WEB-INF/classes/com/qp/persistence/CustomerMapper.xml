@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qp.persistence.CustomerMapper">
+
+	<!-- mysql分页查询 -->
+	<sql id="pagingHeader"></sql>
+	<sql id="pagingFooter">limit ${pagingInfo.startIdx},#{pagingInfo.pageRows}</sql>
+	<sql id="countingHeader">SELECT COUNT(*) FROM(</sql>
+	<sql id="countingFooter">) t</sql>
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.qp.entity.Customer">
+		<![CDATA[
+			INSERT INTO customer
+		]]>
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="cusName != null and cusName != ''" >
+			CUS_NAME,
+	    </if>
+	    <if test="cusPhone != null" >
+			CUS_PHONE,
+	    </if>
+	    <if test="cusPhone1 != null and cusPhone1 != ''" >
+			CUS_PHONE1,
+	    </if>
+	    <if test="cusPhone2 != null and cusPhone2 != ''" >
+			CUS_PHONE2,
+	    </if>
+	    <if test="cusRemark != null and cusRemark != ''" >
+			CUS_REMARK,
+	    </if>
+	    <if test="cusAddr != null and cusAddr != ''" >
+			CUS_ADDR,
+	    </if>
+	    <if test="cusOrder != null" >
+			CUS_ORDER,
+	    </if>
+	    <if test="cusDate != null" >
+			CUS_DATE,
+	    </if>
+	    <if test="cusTimes != null" >
+			CUS_TIMES,
+	    </if>
+	    <if test="cusSite != null and cusSite != ''" >
+			CUS_SITE,
+	    </if>
+	    <if test="cusDesc != null and cusDesc != ''" >
+			CUS_DESC,
+	    </if>
+	    <if test="cusHeadImg != null and cusHeadImg != ''" >
+			CUS_HEAD_IMG,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides="," >
+	  	<if test="cusName != null and cusName != ''" >
+			#{cusName},
+	    </if>
+	    <if test="cusPhone != null" >
+			#{cusPhone},
+	    </if>
+	    <if test="cusPhone1 != null and cusPhone1!=''" >
+			#{cusPhone1},
+	    </if>
+	    <if test="cusPhone2 != null and cusPhone2 != ''" >
+			#{cusPhone2},
+	    </if>
+	    <if test="cusRemark != null and cusRemark != ''" >
+			#{cusRemark},
+	    </if>
+	    <if test="cusAddr != null and cusAddr != ''" >
+			#{cusAddr},
+	    </if>
+	    <if test="cusOrder != null" >
+			#{cusOrder},
+	    </if>
+	    <if test="cusDate != null" >
+			#{cusDate},
+	    </if>
+	    <if test="cusTimes != null" >
+			#{cusTimes},
+	    </if>
+	    <if test="cusSite != null and cusSite != ''" >
+			#{cusSite},
+	    </if>
+	    <if test="cusDesc != null and cusDesc != ''" >
+			#{cusDesc},
+	    </if>
+	    <if test="cusHeadImg != null and cusHeadImg != ''" >
+			#{cusHeadImg},
+	    </if>
+	  </trim>
+	  <selectKey resultType="Long" keyProperty="cusId"> 
+		<![CDATA[SELECT LAST_INSERT_ID() ]]>
+	　 </selectKey> 
+	</insert>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			DELETE FROM customer
+				WHERE CUS_ID = #{cusId}
+		]]>
+	</delete>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.qp.entity.Customer">
+	    <![CDATA[
+			UPDATE customer 
+	    ]]>
+		<set>
+		<if test="cusName != null and cusName!=''">
+    	<![CDATA[ CUS_NAME = #{cusName}, ]]>
+		</if>
+		<if test="cusPhone != null">
+    	<![CDATA[ CUS_PHONE = #{cusPhone}, ]]>
+		</if>
+		<if test="cusPhone1 != null and cusPhone1!=''">
+    	<![CDATA[ CUS_PHONE1 = #{cusPhone1}, ]]>
+		</if>
+		<if test="cusPhone2 != null and cusPhone2!=''">
+    	<![CDATA[ CUS_PHONE2 = #{cusPhone2}, ]]>
+		</if>
+		<if test="cusRemark != null and cusRemark!=''">
+    	<![CDATA[ CUS_REMARK = #{cusRemark}, ]]>
+		</if>
+		<if test="cusAddr != null and cusAddr!=''">
+    	<![CDATA[ CUS_ADDR = #{cusAddr}, ]]>
+		</if>
+		<if test="cusOrder != null">
+    	<![CDATA[ CUS_ORDER = #{cusOrder}, ]]>
+		</if>
+		<if test="cusDate != null">
+    	<![CDATA[ CUS_DATE = #{cusDate}, ]]>
+		</if>
+		<if test="cusTimes != null">
+    	<![CDATA[ CUS_TIMES = CUS_TIMES+1, ]]>
+		</if>
+		<if test="cusSite != null and cusSite!=''">
+    	<![CDATA[ CUS_SITE = #{cusSite}, ]]>
+		</if>
+		<if test="cusDesc != null and cusDesc!=''">
+    	<![CDATA[ CUS_DESC = #{cusDesc}, ]]>
+		</if>
+		<if test="cusHeadImg != null and cusHeadImg!=''">
+    	<![CDATA[ CUS_HEAD_IMG = #{cusHeadImg}, ]]>
+		</if>
+		</set>
+	    <![CDATA[
+	        WHERE CUS_ID = #{cusId}
+	    ]]>
+	</update>
+
+	<!-- 根据主键查询记录 -->
+	<select id="select" parameterType="long" resultMap="customerList">
+		<include refid="sqlSelectAll" />
+		<![CDATA[
+			WHERE CUS_ID = #{cusId}
+		]]>
+	</select>
+	
+	<select id="findMaxPhone" resultType="long">
+		<![CDATA[
+			SELECT MAX(CUS_PHONE) FROM CUSTOMER 
+		]]>
+	</select>
+
+	<!-- 条件查询所有记录 -->
+	<select id="selectList" parameterType="com.qp.entity.querybean.CustomerQB"
+		resultMap="customerList">
+		<include refid="sqlSelectList" />
+	</select>
+	<!-- 条件查询所有记录 -->
+	<select id="selectCols" parameterType="com.qp.entity.querybean.CustomerQB" resultMap="customerList">
+		<![CDATA[
+			SELECT CUS.CUS_ID,CUS.CUS_NAME FROM CUSTOMER CUS,COLLECTS CS WHERE CS.CUS_ID = CUS.CUS_ID
+			AND OPEN_ID='${openId}'
+		]]>
+	</select>
+
+	<!-- 分页条件查询所有记录 -->
+	<select id="selectPage" parameterType="PagingQueryBean"
+		resultMap="customerList">
+		<include refid="pagingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="pagingFooter" />
+	</select>
+	<!-- 查询记录总数 -->
+	<select id="selectCount" parameterType="PagingQueryBean"
+		resultType="int">
+		<include refid="countingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="countingFooter" />
+	</select>
+	<!-- 分页条件查询所有记录 -->
+	<select id="selectInp" parameterType="PagingQueryBean"
+		resultMap="customerList">
+		<include refid="pagingHeader" />
+		<include refid="sqlInq" />
+		<include refid="pagingFooter" />
+	</select>
+	<!-- 查询记录总数 -->
+	<select id="selectInpCount" parameterType="PagingQueryBean"
+		resultType="int">
+		<include refid="countingHeader" />
+		<include refid="sqlInq" />
+		<include refid="countingFooter" />
+	</select>
+
+	<resultMap id="customerList" type="com.qp.entity.Customer">
+		<result property="cusId" column="CUS_ID" />
+		<result property="cusName" column="CUS_NAME" />
+		<result property="cusPhone" column="CUS_PHONE" />
+		<result property="cusPhone1" column="CUS_PHONE1" />
+		<result property="cusPhone2" column="CUS_PHONE2" />
+		<result property="cusRemark" column="CUS_REMARK" />
+		<result property="cusAddr" column="CUS_ADDR" />
+		<result property="cusOrder" column="CUS_ORDER" />
+		<result property="cusDate" column="CUS_DATE" />
+		<result property="cusTimes" column="CUS_TIMES" />
+		<result property="cusSite" column="CUS_SITE" />
+		<result property="cusDesc" column="CUS_DESC" />
+		<result property="cusHeadImg" column="CUS_HEAD_IMG" />
+	</resultMap>
+
+	<sql id="sqlInq">
+		SELECT C.CUS_ID,C.CUS_NAME,C.CUS_PHONE,C.CUS_ORDER,C.CUS_DATE,C.CUS_TIMES,C.CUS_HEAD_IMG FROM CUSTOMER C
+		<if test="queryBean.typesId!=null">JOIN TYPE_CUS TC ON C.CUS_ID=TC.CUS_ID</if>
+		<where>
+			<if test="queryBean.cusId != null">
+			<![CDATA[ AND C.CUS_ID = #{queryBean.cusId} ]]>
+			</if>
+			<if test="queryBean.cusNamel != null and queryBean.cusNamel!=''">
+			<![CDATA[ AND CUS_NAME LIKE '%${queryBean.cusNamel}%' ]]>
+			</if>
+			<if test="queryBean.cusPhone != null">
+			<![CDATA[ AND C.CUS_PHONE = #{queryBean.cusPhone} ]]>
+			</if>
+			<if test="queryBean.typesId != null">
+			<![CDATA[ AND TC.TYPES_ID = #{queryBean.typesId} ]]>
+			</if>
+			<if test="queryBean.cusPhone1 != null and queryBean.cusPhone1!=''">
+			<![CDATA[ AND C.CUS_PHONE1 = #{queryBean.cusPhone1} ]]>
+			</if>
+			<if test="queryBean.cusPhone2 != null and queryBean.cusPhone2!=''">
+			<![CDATA[ AND C.CUS_PHONE2 = #{queryBean.cusPhone2} ]]>
+			</if>
+		</where>
+		ORDER BY <if test="queryBean.typesId!=null">TC.TC_ORDER DESC,</if>C.CUS_ORDER DESC,C.CUS_TIMES DESC
+	</sql>
+	<sql id="sqlSelectList">
+		<include refid="sqlSelectAll" />
+		<where>
+			<if test="cusId != null">
+			<![CDATA[ AND CUS_ID = #{cusId} ]]>
+			</if>
+			<if test="cusName != null and cusName!=''">
+			<![CDATA[ AND CUS_NAME = #{cusName} ]]>
+			</if>
+			<if test="cusPhone != null">
+			<![CDATA[ AND CUS_PHONE = #{cusPhone} ]]>
+			</if>
+			<if test="cusPhone1 != null and cusPhone1!=''">
+			<![CDATA[ AND CUS_PHONE1 = #{cusPhone1} ]]>
+			</if>
+			<if test="cusPhone2 != null and cusPhone2!=''">
+			<![CDATA[ AND CUS_PHONE2 = #{cusPhone2} ]]>
+			</if>
+			<if test="cusRemark != null and cusRemark!=''">
+			<![CDATA[ AND CUS_REMARK = #{cusRemark} ]]>
+			</if>
+			<if test="cusAddr != null and cusAddr!=''">
+			<![CDATA[ AND CUS_ADDR = #{cusAddr} ]]>
+			</if>
+			<if test="cusOrder != null">
+			<![CDATA[ AND CUS_ORDER = #{cusOrder} ]]>
+			</if>
+			<if test="cusDate != null">
+			<![CDATA[ AND CUS_DATE = #{cusDate} ]]>
+			</if>
+			<if test="cusTimes != null">
+			<![CDATA[ AND CUS_TIMES = #{cusTimes} ]]>
+			</if>
+			<if test="cusIds != null and cusIds!=''">
+			<![CDATA[ AND CUS_ID IN (${cusIds}) ]]>
+			</if>
+		</where>
+		<![CDATA[
+			ORDER BY CUS_ORDER DESC,CUS_TIMES DESC;
+		]]>
+	</sql>
+	
+	<sql id="sqlSelectPage">
+		<include refid="sqlSelectAll" />
+		<where>	     				
+	    <if test="queryBean.cusId != null">
+		<![CDATA[ AND CUS_ID = #{queryBean.cusId} ]]>
+		</if>
+	    <if test="queryBean.cusName != null">
+		<![CDATA[ AND CUS_NAME = #{queryBean.cusName} ]]>
+		</if>
+	    <if test="queryBean.cusPhone != null">
+		<![CDATA[ AND CUS_PHONE = #{queryBean.cusPhone} ]]>
+		</if>
+	    <if test="queryBean.cusPhone1 != null">
+		<![CDATA[ AND CUS_PHONE1 = #{queryBean.cusPhone1} ]]>
+		</if>
+	    <if test="queryBean.cusPhone2 != null">
+		<![CDATA[ AND CUS_PHONE2 = #{queryBean.cusPhone2} ]]>
+		</if>
+	    <if test="queryBean.cusRemark != null">
+		<![CDATA[ AND CUS_REMARK = #{queryBean.cusRemark} ]]>
+		</if>
+	    <if test="queryBean.cusAddr != null">
+		<![CDATA[ AND CUS_ADDR = #{queryBean.cusAddr} ]]>
+		</if>
+	    <if test="queryBean.cusOrder != null">
+		<![CDATA[ AND CUS_ORDER = #{queryBean.cusOrder} ]]>
+		</if>
+	    <if test="queryBean.cusDate != null">
+		<![CDATA[ AND CUS_DATE = #{queryBean.cusDate} ]]>
+		</if>
+	    <if test="queryBean.cusTimes != null">
+		<![CDATA[ AND CUS_TIMES = #{queryBean.cusTimes} ]]>
+		</if>
+	    <if test="queryBean.cusNamel != null and queryBean.cusNamel != ''">
+		<![CDATA[ AND CUS_NAME LIKE '%${queryBean.cusNamel}%' ]]>
+		</if>
+		</where>
+		<![CDATA[
+			ORDER BY CUS_DATE DESC
+		]]>
+	</sql>
+	<sql id="sqlSelectAll">
+			SELECT
+				<include refid="sqlColumn" />
+			FROM customer 
+	</sql>
+	<sql id="sqlColumn">
+		CUS_ID,CUS_NAME,CUS_PHONE,CUS_PHONE1,CUS_PHONE2,CUS_REMARK,CUS_ADDR,CUS_ORDER,CUS_DATE,CUS_TIMES,CUS_SITE,CUS_DESC,CUS_HEAD_IMG
+	</sql>
+</mapper>

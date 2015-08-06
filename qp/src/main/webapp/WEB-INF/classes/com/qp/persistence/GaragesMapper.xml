@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qp.persistence.GaragesMapper">
+
+	<!-- mysql分页查询 -->
+	<sql id="pagingHeader"></sql>
+	<sql id="pagingFooter">limit ${pagingInfo.startIdx},#{pagingInfo.pageRows}</sql>
+	<sql id="countingHeader">SELECT COUNT(*) FROM(</sql>
+	<sql id="countingFooter">) t</sql>
+
+	<!-- 插入记录 -->
+	<insert id="insert" parameterType="com.qp.entity.Garages">
+		<![CDATA[
+			INSERT INTO garages
+		]]>
+		<trim prefix="(" suffix=")" suffixOverrides="," >
+	    <if test="garageName != null" >
+			GARAGE_NAME,
+	    </if>
+	    <if test="garagePhone != null" >
+			GARAGE_PHONE,
+	    </if>
+	    <if test="areaId != null" >
+			AREA_ID,
+	    </if>
+	    <if test="garageImg != null" >
+			GARAGE_IMG,
+	    </if>
+	    <if test="createDate != null" >
+			CREATE_DATE,
+	    </if>
+	    <if test="garageRemark != null and garageRemark != ''" >
+			GARAGE_REMARK,
+	    </if>
+	    <if test="gtype != 0" >
+			G_TYPE,
+	    </if>
+	  </trim>
+	  <trim prefix="values (" suffix=")" suffixOverrides="," >
+	    <if test="garageName != null" >
+			#{garageName},
+	    </if>
+	    <if test="garagePhone != null" >
+			#{garagePhone},
+	    </if>
+	    <if test="areaId != null" >
+			#{areaId},
+	    </if>
+	    <if test="garageImg != null" >
+			#{garageImg},
+	    </if>
+	    <if test="createDate != null" >
+			#{createDate},
+	    </if>
+	    <if test="garageRemark != null and garageRemark!=''" >
+			#{garageRemark},
+	    </if>
+	    <if test="gtype != 0" >
+			#{gtype},
+	    </if>
+	  </trim>
+	  <selectKey resultType="Long" keyProperty="typeCusId"> 
+		<![CDATA[SELECT LAST_INSERT_ID()]]>　 
+	  </selectKey>
+	</insert>
+
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="long">
+		<![CDATA[
+			DELETE FROM garages
+				WHERE GARAGE_ID = #{garageId}
+		]]>
+	</delete>
+
+	<!-- 更新记录 -->
+	<update id="update" parameterType="com.qp.entity.Garages">
+	    <![CDATA[
+			UPDATE garages 
+	    ]]>
+		<set>
+		<if test="garageName != null">
+    	<![CDATA[ GARAGE_NAME = #{garageName}, ]]>
+		</if>
+		<if test="garagePhone != null">
+    	<![CDATA[ GARAGE_PHONE = #{garagePhone}, ]]>
+		</if>
+		<if test="areaId != null">
+    	<![CDATA[ AREA_ID = #{areaId}, ]]>
+		</if>
+		<if test="garageImg != null">
+    	<![CDATA[ GARAGE_IMG = #{garageImg}, ]]>
+		</if>
+		<if test="createDate != null">
+    	<![CDATA[ CREATE_DATE = #{createDate}, ]]>
+		</if>
+		<if test="garageRemark != null and garageRemark!=''">
+    	<![CDATA[ GARAGE_REMARK = #{garageRemark}, ]]>
+		</if>
+		<if test="gtype != 0">
+    	<![CDATA[ G_TYPE = #{gtype}, ]]>
+		</if>
+		</set>
+	    <![CDATA[
+	        WHERE GARAGE_ID = #{garageId}
+	    ]]>
+	</update>
+
+	<!-- 根据主键查询记录 -->
+	<select id="select" parameterType="long" resultMap="garagesList">
+		<include refid="sqlSelectAll" />
+		<![CDATA[
+			WHERE GARAGE_ID = #{garageId}
+		]]>
+	</select>
+
+	<!-- 条件查询所有记录 -->
+	<select id="selectList" parameterType="com.qp.entity.querybean.GaragesQB"
+		resultMap="garagesList">
+		<include refid="sqlSelectList" />
+	</select>
+
+	<!-- 分页条件查询所有记录 -->
+	<select id="selectPage" parameterType="PagingQueryBean"
+		resultMap="garagesList">
+		<include refid="pagingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="pagingFooter" />
+	</select>
+	<!-- 分页条件查询所有记录 -->
+	<select id="selectWPage" parameterType="PagingQueryBean"
+		resultMap="garagesWList">
+		<include refid="pagingHeader" />
+		<![CDATA[ 
+			SELECT G.GARAGE_ID,G.GARAGE_NAME,G.GARAGE_PHONE,G.AREA_ID,G.GARAGE_IMG,G.CREATE_DATE,G.GARAGE_REMARK,AD.DIVISION_NAME,G.G_TYPE
+			FROM GARAGES G,ADMIN_DIVISION AD WHERE G.AREA_ID=AD.DIVISION_ID
+		]]>
+		<if test="queryBean.garageId != null">
+		<![CDATA[ AND G.GARAGE_ID = #{queryBean.garageId} ]]>
+		</if>
+		<if test="queryBean.gtype != 0">
+		<![CDATA[ AND G.G_TYPE = #{queryBean.gtype} ]]>
+		</if>
+	    <if test="queryBean.garageName != null">
+		<![CDATA[ AND G.GARAGE_NAME = #{queryBean.garageName} ]]>
+		</if>
+	    <if test="queryBean.garagePhone != null">
+		<![CDATA[ AND G.GARAGE_PHONE = #{queryBean.garagePhone} ]]>
+		</if>
+	    <if test="queryBean.areaId != null">
+		<![CDATA[ AND G.AREA_ID = #{queryBean.areaId} ]]>
+		</if>
+	    <if test="queryBean.garageImg != null">
+		<![CDATA[ AND GARAGE_IMG = #{queryBean.garageImg} ]]>
+		</if>
+	    <if test="queryBean.createDate != null">
+		<![CDATA[ AND CREATE_DATE = #{queryBean.createDate} ]]>
+		</if>
+		<include refid="pagingFooter" />
+	</select>
+	<!-- 查询记录总数 -->
+	<select id="selectCount" parameterType="PagingQueryBean"
+		resultType="int">
+		<include refid="countingHeader" />
+		<include refid="sqlSelectPage" />
+		<include refid="countingFooter" />
+	</select>
+
+	<resultMap id="garagesList" type="com.qp.entity.Garages">
+		<result property="garageId" column="GARAGE_ID" />
+		<result property="garageName" column="GARAGE_NAME" />
+		<result property="garagePhone" column="GARAGE_PHONE" />
+		<result property="areaId" column="AREA_ID" />
+		<result property="garageImg" column="GARAGE_IMG" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="garageRemark" column="GARAGE_REMARK" />
+		<result property="gtype" column="G_TYPE" />
+	</resultMap>
+	<resultMap id="garagesWList" type="com.qp.entity.Garages">
+		<result property="garageId" column="GARAGE_ID" />
+		<result property="garageName" column="GARAGE_NAME" />
+		<result property="garagePhone" column="GARAGE_PHONE" />
+		<result property="areaId" column="AREA_ID" />
+		<result property="garageImg" column="GARAGE_IMG" />
+		<result property="createDate" column="CREATE_DATE" />
+		<result property="garageRemark" column="GARAGE_REMARK" />
+		<result property="areaName" column="DIVISION_NAME" />
+		<result property="gtype" column="G_TYPE" />
+	</resultMap>
+
+	<sql id="sqlSelectList">
+		<include refid="sqlSelectAll" />
+		<where>
+			<if test="garageId != null">
+			<![CDATA[ AND GARAGE_ID = #{garageId} ]]>
+			</if>
+			<if test="garageName != null">
+			<![CDATA[ AND GARAGE_NAME = #{garageName} ]]>
+			</if>
+			<if test="garagePhone != null">
+			<![CDATA[ AND GARAGE_PHONE = #{garagePhone} ]]>
+			</if>
+			<if test="areaId != null">
+			<![CDATA[ AND AREA_ID = #{areaId} ]]>
+			</if>
+			<if test="garageImg != null">
+			<![CDATA[ AND GARAGE_IMG = #{garageImg} ]]>
+			</if>
+			<if test="createDate != null">
+			<![CDATA[ AND CREATE_DATE = #{createDate} ]]>
+			</if>
+			<if test="gtype != 0">
+			<![CDATA[ AND G_TYPE = #{gtype} ]]>
+			</if>
+		</where>
+	</sql>
+	
+	<sql id="sqlSelectPage">
+		<include refid="sqlSelectAll" />
+		<where>	     				
+	    <if test="queryBean.garageId != null">
+		<![CDATA[ AND GARAGE_ID = #{queryBean.garageId} ]]>
+		</if>
+	    <if test="queryBean.garageName != null">
+		<![CDATA[ AND GARAGE_NAME = #{queryBean.garageName} ]]>
+		</if>
+	    <if test="queryBean.garagePhone != null">
+		<![CDATA[ AND GARAGE_PHONE = #{queryBean.garagePhone} ]]>
+		</if>
+	    <if test="queryBean.areaId != null">
+		<![CDATA[ AND AREA_ID = #{queryBean.areaId} ]]>
+		</if>
+	    <if test="queryBean.garageImg != null">
+		<![CDATA[ AND GARAGE_IMG = #{queryBean.garageImg} ]]>
+		</if>
+	    <if test="queryBean.createDate != null">
+		<![CDATA[ AND CREATE_DATE = #{queryBean.createDate} ]]>
+		</if>
+	    <if test="queryBean.gtype != 0">
+		<![CDATA[ AND G_TYPE = #{queryBean.gtype} ]]>
+		</if>
+		</where>
+	</sql>
+	<sql id="sqlSelectAll">
+			SELECT
+				<include refid="sqlColumn" />
+			FROM garages 
+	</sql>
+	<sql id="sqlColumn">
+		GARAGE_ID,GARAGE_NAME,GARAGE_PHONE,AREA_ID,GARAGE_IMG,CREATE_DATE,GARAGE_REMARK,G_TYPE
+	</sql>
+</mapper>
